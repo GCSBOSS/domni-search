@@ -1,0 +1,64 @@
+stages:
+  - test
+  - deploy
+
+variables:
+  npm_config_cache: "$CI_PROJECT_DIR/.npm"
+  CYPRESS_CACHE_FOLDER: "$CI_PROJECT_DIR/cache/Cypress"
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - .npm
+    - cache/Cypress
+    - node_modules
+
+include:
+  - template: Dependency-Scanning.gitlab-ci.yml
+  - template: SAST.gitlab-ci.yml
+  - template: Code-Quality.gitlab-ci.yml
+
+sast:
+  variables:
+    SAST_EXCLUDED_PATHS: test/**
+
+# Lint js files
+lint-js:
+ image: node
+ stage: test
+ tags:
+   - docker
+ script:
+   - npm install -g eslint
+   - eslint --ignore-pattern "**/*.min.js" $CI_PROJECT_DIR
+
+# Performs unit testing
+unit-test:
+  coverage: '/Statements\s*:\s*(\d+(?:\.\d+)?\%)/'
+  image: cypress/base
+  stage: test
+  artifacts:
+    paths: [coverage]
+  tags:
+    - docker
+  script:
+    - npm i -g nyc
+    - npm i
+    - npm run instrument
+    - npm t
+    - npm run coverage
+
+# Publish package to NPM
+publish:
+  stage: deploy
+  image: node
+  tags:
+    - docker
+  only:
+    - tags
+    - triggers
+  script:
+    - npm run minify
+    - npm install -g npm-cli-login
+    - npm-cli-login
+    - npm publish

@@ -1,16 +1,38 @@
 {
   "name": "domni-search",
   "version": "0.1.0",
-  "description": "A search bar component for filtering DOM nodes based on content",
+  "description": "A white-label search bar component for filtering DOM nodes based on content.",
+  "main": "dist/domni-search.min.js",
   "scripts": {
     "instrument": "nyc instrument --compact=false src coverage/inst",
     "coverage": "nyc report -r html -r text-summary",
     "test": "./node_modules/.bin/cypress run -s **/*.js",
     "minify": "uglifyjs -c -m -o dist/domni-search.min.js src/*.js"
   },
+  "keywords": [
+      "browser",
+      "component",
+      "search",
+      "bar",
+      "dom",
+      "omni",
+      "decorator",
+      "index",
+      "toggle",
+      "fade",
+      "web",
+      "whitelabel"
+  ],
   "author": "Guilherme C. Souza",
   "license": "MIT",
   "dependencies": {
     "cypress": "^3.4.1"
+  },
+  "bugs": {
+    "url": "https://gitlab.com/GCSBOSS/domni-search/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/GCSBOSS/domni-search.git"
   }
 }

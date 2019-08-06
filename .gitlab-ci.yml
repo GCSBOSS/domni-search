@@ -58,6 +58,8 @@ publish:
     - tags
     - triggers
   script:
+    - mkdir dist
+    - npm i -g uglify-es
     - npm run minify
     - npm install -g npm-cli-login
     - npm-cli-login

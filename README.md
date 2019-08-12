@@ -1,4 +1,4 @@
-# [DOMni Search](https://gitlab.com/GCSBOSS/)
+# [DOMni Search](https://gitlab.com/GCSBOSS/domni-search)
 
 A search bar component for filtering DOM nodes based on content.
 
@@ -7,7 +7,7 @@ A search bar component for filtering DOM nodes based on content.
 Include the script:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/domni-search@0.1.0/dist/domni-search.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/domni-search@0"></script>
 ```
 
 Have a host input search element and a couple elements amongst which to search:
